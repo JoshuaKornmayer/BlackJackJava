@@ -17,6 +17,7 @@ public class playGame {
         // int response = 1;
         boolean endOfHand = false;
         boolean endOfGame = false;
+        boolean endOfPlayerHand = false;
         int response = 1;
         Money money = new Money();
         System.out.println("Welcome to Blackjack!");
@@ -80,62 +81,60 @@ public class playGame {
 
                 if (computerHand.cardsValue() == 21 && playerHand.cardsValue() != 21) {
                     System.out.println("Dealer has 21, you lose the hand and your bet.");
+                    endOfPlayerHand = true;
                     endOfHand = true;
                 }
 
                 if (computerHand.cardsValue() == 21 && playerHand.cardsValue() == 21) {
                     System.out.println(
                             "You and the dealer have 21, so it's a push. You keep your bet but don't win any money.");
+                    endOfPlayerHand = true;
                     endOfHand = true;
                 }
                 if (playerHand.cardsValue() == 21) {
                     System.out.println("BLACKJACK! You win!");
+                    endOfPlayerHand = true;
                     endOfHand = true;
                 }
 
-                // int response = scanner.nextInt();
-
-                while (response == 1 && endOfHand == false) {
+                if (endOfHand == false) {
                     System.out.println(
                             "Would you like to Hit(1) or Stand(2)? Enter the number corresponding to the commands.");
                     response = scanner.nextInt();
-                    playerHand.draw(deck1);
-                    System.out.println("Your drew a " + playerHand.getCard(playerHand.deckSize() - 1));
-                    // System.out.println("Your cards value now is " + playerHand.cardsValue());
+                }
 
+                while (endOfPlayerHand == false) {
                     if (playerHand.cardsValue() > 21) {
                         System.out.println("You busted, because your cards value is " + playerHand.cardsValue()
                                 + ". The dealer wins and you lose the bet.");
+                        endOfPlayerHand = true;
                         endOfHand = true;
-                    } else if (playerHand.cardsValue() <= 21) {
-                        System.out.println("Your cards value now is " + playerHand.cardsValue());
-                        System.out.println(
-                                "Would you like to Hit(1) or Stand(2)? Enter the number corresponding to the commands.");
-                        response = scanner.nextInt();
-
+                    } else if (response == 2) {
+                        System.out.println("You stand at " + playerHand.cardsValue());
+                        endOfPlayerHand = true;
+                    } else if (response == 1) {
+                        playerHand.draw(deck1);
+                        System.out.println("Your drew a " + playerHand.getCard(playerHand.deckSize() - 1));
+                        System.out.println("Your cards value is now " + playerHand.cardsValue());
+                        if (playerHand.cardsValue() > 21) {
+                            // System.out.println("You busted, because your cards value is " +
+                            // playerHand.cardsValue()
+                            // + ". The dealer wins and you lose the bet.");
+                            endOfPlayerHand = true;
+                            // endOfHand = true;
+                        } else {
+                            System.out.println(
+                                    "Would you like to Hit(1) or Stand(2)? Enter the number corresponding to the commands.");
+                            response = scanner.nextInt();
+                        }
+                        if (response == 2) {
+                            System.out.println("You stand at " + playerHand.cardsValue());
+                            endOfPlayerHand = true;
+                        } else {
+                            endOfPlayerHand = false;
+                        }
                     }
 
-                    // if (response == 1) {
-                    // playerHand.draw(deck1);
-                    // System.out.println("Your drew a " + playerHand.getCard(playerHand.deckSize()
-                    // - 1));
-                    // } else {
-                    // System.out.println("You stand with your cards valued at " +
-                    // playerHand.cardsValue());
-                    // }
-
-                    // if (playerHand.cardsValue() > 21) {
-                    // System.out.println(
-                    // "You busted since your hand value is over 21.\n Dealer wins and you lose your
-                    // bet.");
-                    // endOfHand = true;
-                    // }
-
-                }
-
-                if (response == 2) {
-                    System.out.println("You stand at " + playerHand.cardsValue());
-                    endOfHand = true;
                 }
 
                 // while (computerHand.cardsValue() < 17) {
@@ -156,12 +155,14 @@ public class playGame {
                 // System.out.println("You lost.");
                 // endOfHand = true;
                 // }
+                break;
             }
 
             System.out.println("Want to bet again or 0 for quit?");
             bet = scanner.nextInt();
             if (bet != 0) {
                 endOfHand = false;
+                endOfPlayerHand = false;
             }
 
         }
