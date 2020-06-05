@@ -82,23 +82,28 @@ public class playGame {
 
                 if (computerHand.cardsValue() == 21 && playerHand.cardsValue() != 21) {
                     System.out.println("Dealer has 21, you lose the hand and your bet.");
-                    endOfPlayerHand = true;
-                    endOfComputerHand = true;
-                    endOfHand = true;
+                    // endOfPlayerHand = true;
+                    // endOfComputerHand = true;
+                    // endOfHand = true;
+                    break;
                 }
 
                 if (computerHand.cardsValue() == 21 && playerHand.cardsValue() == 21) {
                     System.out.println(
                             "You and the dealer have 21, so it's a push. You keep your bet but don't win any money.");
-                    endOfPlayerHand = true;
-                    endOfComputerHand = true;
-                    endOfHand = true;
+                    money.setInitialBudgetAfterPush(bet);
+                    // endOfPlayerHand = true;
+                    // endOfComputerHand = true;
+                    // endOfHand = true;
+                    break;
                 }
                 if (playerHand.cardsValue() == 21) {
                     System.out.println("BLACKJACK! You win!");
-                    endOfPlayerHand = true;
-                    endOfComputerHand = true;
-                    endOfHand = true;
+                    money.setInitialBudgetAfterWin(bet);
+                    // endOfPlayerHand = true;
+                    // endOfComputerHand = true;
+                    // endOfHand = true;
+                    break;
                 }
 
                 if (endOfHand == false) {
@@ -114,9 +119,11 @@ public class playGame {
                         endOfPlayerHand = true;
                         endOfComputerHand = true;
                         endOfHand = true;
+
                     } else if (response == 2) {
                         System.out.println("You stand at " + playerHand.cardsValue());
                         endOfPlayerHand = true;
+                        endOfComputerHand = false;
                     } else if (response == 1) {
                         playerHand.draw(deck1);
                         System.out.println("Your drew a " + playerHand.getCard(playerHand.deckSize() - 1));
@@ -136,6 +143,7 @@ public class playGame {
                         if (response == 2) {
                             System.out.println("You stand at " + playerHand.cardsValue());
                             endOfPlayerHand = true;
+                            endOfComputerHand = false;
                         } else {
                             endOfPlayerHand = false;
                         }
@@ -149,8 +157,10 @@ public class playGame {
                         System.out.println("Dealer drew a " + computerHand.getCard(computerHand.deckSize() - 1));
                         if (computerHand.cardsValue() > 21) {
                             System.out.println("The dealer busts, you win the hand!");
+                            money.setInitialBudgetAfterWin(bet);
                             endOfComputerHand = true;
                             endOfHand = true;
+
                         }
 
                     }
@@ -161,24 +171,35 @@ public class playGame {
 
                 }
 
-                // if (playerHand.cardsValue() == computerHand.cardsValue()) {
-                // System.out.println("You and the dealer push! You get your money back.");
-                // endOfHand = true;
-                // } else if (playerHand.cardsValue() > computerHand.cardsValue()) {
-                // System.out.println("You win!");
-                // endOfHand = true;
-                // } else if (playerHand.cardsValue() < computerHand.cardsValue()) {
-                // System.out.println("You lost.");
-                // endOfHand = true;
-                // }
-                break;
+                while (endOfComputerHand == true && endOfPlayerHand == true && computerHand.cardsValue() <= 21
+                        && playerHand.cardsValue() <= 21) {
+                    if (playerHand.cardsValue() == computerHand.cardsValue()) {
+                        System.out.println("You and the dealer push! You get your money back.");
+                        money.setInitialBudgetAfterPush(bet);
+                        endOfHand = true;
+                        break;
+                    } else if (playerHand.cardsValue() > computerHand.cardsValue()) {
+                        System.out.println("You win!");
+                        money.setInitialBudgetAfterWin(bet);
+                        endOfHand = true;
+                        break;
+                    } else if (playerHand.cardsValue() < computerHand.cardsValue()) {
+                        System.out.println("You lost.");
+                        endOfHand = true;
+                        break;
+                    }
+
+                }
+
             }
 
+            System.out.println("Your remaining money is $" + money.getInitialBudget());
             System.out.println("Want to bet again or 0 for quit?");
             bet = scanner.nextInt();
             if (bet != 0) {
                 endOfHand = false;
                 endOfPlayerHand = false;
+                endOfComputerHand = false;
             }
 
         }
