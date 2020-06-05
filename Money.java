@@ -1,7 +1,7 @@
 public class Money {
 
     // variables
-    private int initialBudget = 200;
+    private int initialBudget = 50;
     private int betAmount;
     private int moneyAfterBet;
 
