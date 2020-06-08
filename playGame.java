@@ -1,11 +1,6 @@
-import java.util.Random;
 import java.util.Scanner;
 
 public class playGame {
-    // private double initialBudget = 200;
-    // private double money = 4;
-    // private double betAmount;
-
     // constructor
     public playGame() {
 
@@ -16,24 +11,30 @@ public class playGame {
         Scanner scanner = new Scanner(System.in);
         // int response = 1;
         boolean endOfHand = false;
-        boolean endOfGame = false;
         boolean endOfPlayerHand = false;
         boolean endOfComputerHand = false;
         int response = 1;
         Money money = new Money();
-        System.out.println("Welcome to Blackjack!");
-        // System.out.println("Your starting budget is " + Money.getInitialBudget());
-
-        System.out.println("Your starting budget is " + money.getInitialBudget());
         System.out.println(
-                "How much would you like to bet?: Type in the number corresponding to your bet: $5(5), $25(25), $50(50), $100(100) OR type 0 to leave table");
+                "$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$");
+        System.out.println("BLACKJACK");
+
+        System.out.println(
+                "$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$");
+        System.out.println("\nWelcome to Blackjack!\n");
+        System.out.println("Your starting balance is $" + money.getInitialBudget());
+        System.out.println(
+                "\nHow much would you like to bet?: \nBet in increments of 5. \nType in the number corresponding to your bet (ex: $5(5) or $10(10)) \n OR \nType 0 to leave table");
         int bet = scanner.nextInt();
         money.setBetAmount(bet);
         while (money.getInitialBudget() > 0 && money.getMoneyAfterBet() >= 0) {
 
-            while (bet != 0 && bet != 5 && bet != 25 && bet != 50 && bet != 100) {
-                System.out.println(
-                        "Enter in a valid bet amount please!\nType in the number corresponding to your bet: $5(5), $25(25), $50(50), $100(100)");
+            // while (bet != 0 && bet != 5 && bet != 25 && bet != 50 && bet != 100) {
+            while (bet % 5 != 0 && bet != 0) {
+                // System.out.println(
+                // "Enter in a valid bet amount please!\nType in the number corresponding to
+                // your bet: $5(5), $25(25), $50(50), $100(100)");
+                System.out.println("Enter in a valid bet amount please!\nBet in increments of 5.");
                 bet = scanner.nextInt();
 
             }
@@ -48,10 +49,10 @@ public class playGame {
             }
             // money.setBetAmount(bet);
 
-            System.out.println("Your bet amount is $" + money.getBetAmount());
+            System.out.println("\nYour bet amount is $" + money.getBetAmount());
             // System.out.println("Your remaining money is " + money.getMoneyAfterBet());
             // money.setInitialBudget(money.getMoneyAfterBet());
-            System.out.println("your remaining money is $" + money.getInitialBudget());
+            System.out.println("your remaining balance is $" + money.getInitialBudget());
 
             Deck deck1 = new Deck();
             deck1.createFullDeck();
@@ -66,13 +67,14 @@ public class playGame {
             playerHand.draw(deck1);
             computerHand.draw(deck1);
 
-            System.out.println("Your hand is:");
+            System.out.println("\n---------------------------\nYour hand is:");
             System.out.println(playerHand.toString());
             // System.out.println("Your cards are " + playerHand.getCard(0) + " and " +
             // playerHand.getCard(1));
-            System.out.println("The total value of your hand is " + playerHand.cardsValue());
+            System.out.println("\nThe total value of your hand is " + playerHand.cardsValue());
 
-            System.out.println("The dealer's hand is " + computerHand.getCard(0).toString() + " and [hidden]");
+            System.out.println("The dealer's hand is " + computerHand.getCard(0).toString()
+                    + " and [hidden]\n---------------------------");
 
             // System.out.println(playerHand);
             // System.out.println(computerHand);
@@ -114,20 +116,25 @@ public class playGame {
 
                 while (endOfPlayerHand == false) {
                     if (playerHand.cardsValue() > 21) {
-                        System.out.println("You busted, because your cards value is " + playerHand.cardsValue()
+                        System.out.println("---------------------------\nThe dealer's hand is "
+                                + computerHand.getCard(0).toString() + " and " + computerHand.getCard(1).toString()
+                                + "\nYou busted, because your cards value is " + playerHand.cardsValue()
                                 + ". The dealer wins and you lose the bet.");
                         endOfPlayerHand = true;
                         endOfComputerHand = true;
                         endOfHand = true;
 
                     } else if (response == 2) {
-                        System.out.println("You stand at " + playerHand.cardsValue());
+                        System.out.println("---------------------------\nYou stand at " + playerHand.cardsValue());
                         endOfPlayerHand = true;
                         endOfComputerHand = false;
                     } else if (response == 1) {
                         playerHand.draw(deck1);
-                        System.out.println("Your drew a " + playerHand.getCard(playerHand.deckSize() - 1));
+                        System.out.println("---------------------------\nYour drew a "
+                                + playerHand.getCard(playerHand.deckSize() - 1));
                         System.out.println("Your cards value is now " + playerHand.cardsValue());
+                        System.out.println(
+                                "The dealer's hand is " + computerHand.getCard(0).toString() + " and [hidden]");
                         if (playerHand.cardsValue() > 21) {
                             // System.out.println("You busted, because your cards value is " +
                             // playerHand.cardsValue()
@@ -137,11 +144,11 @@ public class playGame {
                             // endOfHand = true;
                         } else {
                             System.out.println(
-                                    "Would you like to Hit(1) or Stand(2)? Enter the number corresponding to the commands.");
+                                    "---------------------------\nWould you like to Hit(1) or Stand(2)? Enter the number corresponding to the commands.");
                             response = scanner.nextInt();
                         }
                         if (response == 2) {
-                            System.out.println("You stand at " + playerHand.cardsValue());
+                            System.out.println("---------------------------\nYou stand at " + playerHand.cardsValue());
                             endOfPlayerHand = true;
                             endOfComputerHand = false;
                         } else {
@@ -152,6 +159,8 @@ public class playGame {
                 }
 
                 while (endOfComputerHand == false) {
+                    System.out.println("---------------------------\nThe dealer's hand is "
+                            + computerHand.getCard(0).toString() + " and " + computerHand.getCard(1).toString());
                     while (computerHand.cardsValue() < 17) {
                         computerHand.draw(deck1);
                         System.out.println("Dealer drew a " + computerHand.getCard(computerHand.deckSize() - 1));
@@ -174,17 +183,18 @@ public class playGame {
                 while (endOfComputerHand == true && endOfPlayerHand == true && computerHand.cardsValue() <= 21
                         && playerHand.cardsValue() <= 21) {
                     if (playerHand.cardsValue() == computerHand.cardsValue()) {
-                        System.out.println("You and the dealer push! You get your money back.");
+                        System.out.println(
+                                "---------------------------\nYou and the dealer push! You get your money back.");
                         money.setInitialBudgetAfterPush(bet);
                         endOfHand = true;
                         break;
                     } else if (playerHand.cardsValue() > computerHand.cardsValue()) {
-                        System.out.println("You win!");
+                        System.out.println("---------------------------\nYou win!");
                         money.setInitialBudgetAfterWin(bet);
                         endOfHand = true;
                         break;
                     } else if (playerHand.cardsValue() < computerHand.cardsValue()) {
-                        System.out.println("You lost.");
+                        System.out.println("---------------------------\nYou lost.");
                         endOfHand = true;
                         break;
                     }
@@ -193,8 +203,11 @@ public class playGame {
 
             }
 
-            System.out.println("Your remaining money is $" + money.getInitialBudget());
-            System.out.println("Want to bet again or 0 for quit?");
+            playerHand.moveAllToDeck(deck1);
+            computerHand.moveAllToDeck(deck1);
+
+            System.out.println("Your remaining balance is $" + money.getInitialBudget());
+            System.out.println("---------------------------\nWant to bet again or 0 for quit?");
             bet = scanner.nextInt();
             if (bet != 0) {
                 endOfHand = false;
@@ -204,7 +217,13 @@ public class playGame {
 
         }
 
-        System.out.println("We will see you next time!");
+        if (money.getInitialBudget() == 0) {
+            System.out.println("You are out of money. Come back when you have more to lose!");
+        } else if (money.getMoneyAfterBet() < 0) {
+            System.out.println("You bet more than you have. Bet within your means please");
+        } else {
+            System.out.println("We will see you next time!");
+        }
     }
 
 }
