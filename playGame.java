@@ -15,12 +15,30 @@ public class playGame {
         boolean endOfComputerHand = false;
         int response = 1;
         Money money = new Money();
-        System.out.println(
-                "$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$");
-        System.out.println("BLACKJACK");
 
         System.out.println(
-                "$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$");
+                "\n$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$");
+        System.out.println(
+                "$                                                                                                           $");
+        System.out.println(
+                "$                ######  ##       #####   #####  ##   ##  ##### #####   #####  ##   ##                      $");
+        System.out.println(
+                "$                ##   ## ##      ##   ## ##   ## ##   ##    ## ##   ## ##   ## ##   ##                      $");
+        System.out.println(
+                "$                ##   ## ##      ##   ## ##      ##  ##     ## ##   ## ##      ##  ##                       $");
+        System.out.println(
+                "$                ######  ##      ####### ##      #####      ## ####### ##      #####                        $");
+        System.out.println(
+                "$                ##   ## ##      ##   ## ##      ##  ##     ## ##   ## ##      ##  ##                       $");
+        System.out.println(
+                "$                ##   ## ##      ##   ## ##   ## ##   ## ## ## ##   ## ##   ## ##   ##                      $");
+        System.out.println(
+                "$                ######  ####### ##   ##  #####  ##   ##  ###  ##   ##  #####  ##   ##                      $");
+        System.out.println(
+                "$                                                                                                           $");
+        System.out.println(
+                "$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$-$");
+
         System.out.println("\nWelcome to Blackjack!\n");
         System.out.println("Your starting balance is $" + money.getInitialBudget());
         System.out.println(
